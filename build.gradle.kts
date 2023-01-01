@@ -18,12 +18,17 @@ reckon {
 repositories {
     mavenCentral()
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") //Spigot
+    maven("https://maven.pkg.github.com/bestlinuxgamers/GuiApi") {
+        name = "github"
+        credentials(PasswordCredentials::class)
+    }
 }
 
 //dependency version vars
 val spigotVersion: String by project
 
 dependencies {
+    implementation("net.bestlinuxgamers.guiapi:gui-api:0.3.3")
     //Spigot
     compileOnly("org.spigotmc:spigot-api:$spigotVersion")
     //tests
