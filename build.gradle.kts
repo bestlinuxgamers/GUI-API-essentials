@@ -39,15 +39,15 @@ tasks.test {
     useJUnitPlatform()
 }
 
-val targetCompatibility = JavaVersion.VERSION_1_8.toString()
+val targetProjectCompatibility = JavaVersion.VERSION_1_8.toString()
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = targetCompatibility
+    kotlinOptions.jvmTarget = targetProjectCompatibility
 }
 
 tasks.withType<JavaCompile> {
     sourceCompatibility = JavaVersion.current().toString()
-    targetCompatibility = targetCompatibility
+    targetCompatibility = targetProjectCompatibility
 }
 
 //custom tasks
