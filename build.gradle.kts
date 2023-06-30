@@ -30,7 +30,7 @@ repositories {
 val spigotVersion: String by project
 
 dependencies {
-    implementation("net.bestlinuxgamers.guiapi:gui-api:0.3.3")
+    compileOnly("net.bestlinuxgamers.guiapi:gui-api:0.3.4")
     //Spigot
     compileOnly("org.spigotmc:spigot-api:$spigotVersion")
     //tests
