@@ -21,12 +21,12 @@ class CollectionView(
     override fun beforeRender(frame: Long) {}
     override fun onComponentTick(tick: Long, frame: Long) {}
 
-    override fun setUp() {
+    init {
         collection.forEachIndexed { index, it ->
             it?.let { itNn ->
                 setComponent(ItemComponent(itNn), index)
             } ?: setComponent(EmptyComponent(), index)
-            if (index + 1 >= reservedSlots.totalReserved) return
+            if (index + 1 >= reservedSlots.totalReserved) return@forEachIndexed
         }
     }
 }

@@ -2,7 +2,7 @@ import org.ajoberstar.reckon.core.Scope
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.8.22"
+    kotlin("jvm") version "1.9.0"
     id("org.ajoberstar.reckon") version "0.18.0"
     id("org.jetbrains.dokka") version "1.8.20"
 }
@@ -30,7 +30,7 @@ repositories {
 val spigotVersion: String by project
 
 dependencies {
-    compileOnly("net.bestlinuxgamers.guiapi:gui-api:0.3.4")
+    compileOnly("net.bestlinuxgamers.guiapi:gui-api:0.3.6")
     //Spigot
     compileOnly("org.spigotmc:spigot-api:$spigotVersion")
     //tests
