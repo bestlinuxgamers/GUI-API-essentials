@@ -1,7 +1,5 @@
 package net.bestlinuxgamers.guiApiEssentials.geometry
 
-import net.bestlinuxgamers.guiApi.component.GuiComponent
-import net.bestlinuxgamers.guiApi.component.util.ReservedSlots
 import org.bukkit.inventory.ItemStack
 
 /**
@@ -10,14 +8,16 @@ import org.bukkit.inventory.ItemStack
  * @param horizontal Ob die linie horizontal sein soll (sonst vertikal).
  * @param item Item, aus der die Komponente bestehen soll.
  */
-open class Line(length: Int, horizontal: Boolean, item: ItemStack?) : GuiComponent(
-    if (horizontal) {
-        ReservedSlots(1, length)
-    } else {
-        ReservedSlots(length) { _ -> arrayOf(true) }
-    }, static = true, componentTick = false, renderFallback = item
+open class Line(length: Int, horizontal: Boolean, item: ItemStack?) : Rectangle(
+    if (horizontal) LINE_WIDTH else length,
+    if (horizontal) length else LINE_WIDTH,
+    item
 ) {
     override fun beforeRender(frame: Long) {}
 
     override fun onComponentTick(tick: Long, frame: Long) {}
+
+    companion object {
+        const val LINE_WIDTH = 1
+    }
 }
