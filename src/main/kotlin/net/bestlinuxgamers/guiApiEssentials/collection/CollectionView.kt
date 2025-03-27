@@ -22,10 +22,9 @@ class CollectionView(
     override fun onComponentTick(tick: Long, frame: Long) {}
 
     init {
-        collection.forEachIndexed { index, it ->
-            it?.let { itNn ->
-                setComponent(ItemComponent(itNn), index)
-            } ?: setComponent(EmptyComponent(), index)
+        collection.forEachIndexed { index, item ->
+            val component = if (item != null) ItemComponent(item) else EmptyComponent()
+            setComponent(component, index)
             if (index + 1 >= reservedSlots.totalReserved) return@forEachIndexed
         }
     }
