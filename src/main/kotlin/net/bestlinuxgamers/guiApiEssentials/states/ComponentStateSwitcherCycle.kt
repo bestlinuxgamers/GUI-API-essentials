@@ -21,29 +21,29 @@ open class ComponentStateSwitcherCycle<T>(
     stateSwitchAction: (T, T) -> Unit = { _, _ -> },
     cycle: List<T> = stateComponents.keys.toList(),
     firstState: T = cycle[0]
-) : StateSwitcher<T>(
+) : ComponentStateSwitcherLambda<T>(
     reservedSlots,
-    generateActions(stateComponents, stateSwitchAction, cycle),
-    firstState = firstState,
-    autoRender = false
+    generateStateComponents(stateComponents, stateSwitchAction, cycle),
+    firstState
 )
 
-private fun <T> generateActions(
+private fun <T> generateStateComponents(
     stateComponents: Map<T, GuiComponent>,
     stateSwitchAction: (T, T) -> Unit,
     cycle: List<T>
-): Map<T, (T, StateSwitcher<T>) -> T> {
+): Map<T, Pair<GuiComponent, (T) -> T>> {
     return stateComponents.mapValues { entry ->
-        return@mapValues stateLambda@{ oldState: T, instance: StateSwitcher<T> ->
-            val state = entry.key
-            instance.setComponent(entry.value, 0, override = true)
+        val state = entry.key
+
+        val cycleIndex = cycle.indexOf(state)
+        val nextState = if (cycleIndex > -1) {
+            cycle[(cycleIndex + 1) % cycle.size] ?: state
+        } else state
+
+        return@mapValues Pair(entry.value) { oldState ->
             stateSwitchAction(oldState, state)
-            instance.triggerReRender()
-
-            val cycleIndex = cycle.indexOf(state)
-            if (cycleIndex < 0) return@stateLambda state
-
-            return@stateLambda cycle[(cycleIndex + 1) % cycle.size] ?: state
+            nextState
         }
     }
+
 }
